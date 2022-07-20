@@ -8,35 +8,50 @@ const app = express();
 const PORT = process.env.PORT;
 const weather = require('./data/weather.json');
 const { query } = require('express');
+const e = require('express');
 
 
 app.use(cors());
 
 class Forecast {
 //   static weather = require('./data/weather.json');
-  constructor(date, description) {
+  constructor(date, condition) {
     this.date = date;
     this.condition = condition;
   }
 }
 
+
 app.get('/', (request, response) => {
   response.send('hello from the home route!');
 });
 
-
 app.get('/weather', (request, response) => {
+  let cityName = request.query.cityName.toLowerCase();
 
-  const cityName = request.query.city;
+  let weatherCity = weather.find(el => {
+    return cityName === el.city_name.toLowerCase();
 
-  const weatherCity = weather.find(el => cityName === el.city_name);
+  });
+  console.log('weatherCity', weatherCity);
+  let forecastArr = makeForecastArray(weatherCity);
 
-  const forecastResult = cityName.data.map(el => {
+  if(cityName !== null) {
+    response.send(forecastArr);
+    console.log('forecastArr',forecastArr);
+  } else {
+    response.send('Please enter Seattle, Paris, or Amman');
+  }
+});
+
+function makeForecastArray(weatherCity) {
+  const forecastArr = weatherCity.data.map(el => {
     let date = el.valid_date;
     let condition = el.weather.description;
-    return new Forecast(date,condition);
+    return new Forecast(date, condition);
   });
-});
+  return forecastArr;
+}
 
 app.get('/error', (request, response) => {
 
