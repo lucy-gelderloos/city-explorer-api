@@ -1,18 +1,29 @@
+'use strict';
+
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT;
-const weather = require('../data/weather.json');
+// const PORT = 3000;
+const PORT = process.env.PORT;
+const weather = require('./data/weather.json');
 const { query } = require('express');
+
 
 app.use(cors());
 
 class Forecast {
+//   static weather = require('./data/weather.json');
   constructor(date, description) {
     this.date = date;
     this.condition = condition;
   }
 }
+
+app.get('/', (request, response) => {
+  response.send('hello from the home route!');
+});
+
 
 app.get('/weather', (request, response) => {
 
@@ -40,6 +51,6 @@ app.use('*', (request, response) => {
 });
 
 // opens up the server for requests
-app.listen(port, () => {
-  console.log('Server is running on port :: ' + port);
+app.listen(PORT, () => {
+  console.log('Server is running on port :: ' + PORT);
 });
