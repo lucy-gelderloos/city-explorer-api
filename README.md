@@ -21,12 +21,14 @@
 
 - Lab 7 partners TJ Parker & Trevor Stephens
 
-Name of feature: ________________________________
+## Features
 
-Estimate of time needed to complete: _____
+### Lab 7, Feature 1: Weather Placeholder
 
-Start time: _____
+Estimate of time needed to complete: 4h
 
-Finish time: _____
+Start time: 4:00 PM
 
-Actual time needed to complete: _____
+Finish time:
+
+Actual time needed to complete:
