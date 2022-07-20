@@ -27,9 +27,15 @@ app.get('/', (request, response) => {
 
 app.get('/weather', (request, response) => {
   let cityName = request.query.cityName;
-//   console.log('request.query', request.query);
-  let weatherCity = weather.find(el => cityName === el.city_name);
-//   console.log('cityName', cityName);
+  let lat = request.query.lat;
+  let lon = request.query.lon;
+  console.log('server lat', lat);
+  let weatherCity = weather.find(el => {
+    cityName === el.city_name &&
+    lat === Math.round(parseInt(el.lat)) &&
+    lon === Math.round(parseInt(el.lon));
+  });
+  console.log('weatherCity', weatherCity);
   let forecastArr = makeForecastArray(weatherCity);
 
   if(cityName !== null) {
@@ -41,13 +47,13 @@ app.get('/weather', (request, response) => {
 });
 
 function makeForecastArray(weatherCity) {
+  console.log('weatherCity', weatherCity);
   const forecastArr = weatherCity.data.map(el => {
     let date = el.valid_date;
     let condition = el.weather.description;
     return new Forecast(date, condition);
   });
   return forecastArr;
-//   console.log('weatherCity', weatherCity);
 }
 
 app.get('/error', (request, response) => {
