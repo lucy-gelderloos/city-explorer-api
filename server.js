@@ -14,29 +14,41 @@ app.use(cors());
 
 class Forecast {
 //   static weather = require('./data/weather.json');
-  constructor(date, description) {
+  constructor(date, condition) {
     this.date = date;
     this.condition = condition;
   }
 }
 
+
 app.get('/', (request, response) => {
   response.send('hello from the home route!');
 });
 
-
 app.get('/weather', (request, response) => {
+  let cityName = request.query.cityName;
+//   console.log('request.query', request.query);
+  let weatherCity = weather.find(el => cityName === el.city_name);
+//   console.log('cityName', cityName);
+  let forecastArr = makeForecastArray(weatherCity);
 
-  const cityName = request.query.city;
+  if(cityName !== null) {
+    response.send(forecastArr);
+    console.log('forecastArr',forecastArr);
+  } else {
+    response.send('Please enter Seattle, Paris, or Amman');
+  }
+});
 
-  const weatherCity = weather.find(el => cityName === el.city_name);
-
-  const forecastResult = cityName.data.map(el => {
+function makeForecastArray(weatherCity) {
+  const forecastArr = weatherCity.data.map(el => {
     let date = el.valid_date;
     let condition = el.weather.description;
-    return new Forecast(date,condition);
+    return new Forecast(date, condition);
   });
-});
+  return forecastArr;
+//   console.log('weatherCity', weatherCity);
+}
 
 app.get('/error', (request, response) => {
 
