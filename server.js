@@ -8,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT;
 const weather = require('./data/weather.json');
 const { query } = require('express');
+const e = require('express');
 
 
 app.use(cors());
@@ -26,14 +27,11 @@ app.get('/', (request, response) => {
 });
 
 app.get('/weather', (request, response) => {
-  let cityName = request.query.cityName;
-  let lat = request.query.lat;
-  let lon = request.query.lon;
-  console.log('server lat', lat);
+  let cityName = request.query.cityName.toLowerCase();
+
   let weatherCity = weather.find(el => {
-    cityName === el.city_name &&
-    lat === Math.round(parseInt(el.lat)) &&
-    lon === Math.round(parseInt(el.lon));
+    return cityName === el.city_name.toLowerCase();
+
   });
   console.log('weatherCity', weatherCity);
   let forecastArr = makeForecastArray(weatherCity);
@@ -47,7 +45,6 @@ app.get('/weather', (request, response) => {
 });
 
 function makeForecastArray(weatherCity) {
-  console.log('weatherCity', weatherCity);
   const forecastArr = weatherCity.data.map(el => {
     let date = el.valid_date;
     let condition = el.weather.description;
