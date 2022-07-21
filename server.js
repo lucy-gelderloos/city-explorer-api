@@ -28,12 +28,15 @@ app.get('/', (request, response) => {
 
 app.get('/weather', (request, response) => {
   let cityName = request.query.cityName.toLowerCase();
+  let lat = request.query.lat;
+  let lon = request.query.lon;
 
   let weatherCity = weather.find(el => {
-    return cityName === el.city_name.toLowerCase();
-
+    return cityName === el.city_name.toLowerCase()
+    && lat === Math.round(el.lat)
+    && lon === Math.round(el.lon);
   });
-  console.log('weatherCity', weatherCity);
+  // console.log('weatherCity', weatherCity);
   let forecastArr = makeForecastArray(weatherCity);
 
   if(cityName !== null) {
