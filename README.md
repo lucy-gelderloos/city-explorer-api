@@ -32,3 +32,23 @@ Start time: 4:00 PM Wednesday
 Finish time: 8:30 PM Thursday
 
 Actual time needed to complete: 8h, with breaks
+
+### Lab 8, Feature 1: Live Weather
+
+Estimate of time needed to complete: 1.5h
+
+Start time: 8:30 PM Thursday
+
+Finish time: 9:00 PM Thursday
+
+Actual time needed to complete: 1h
+
+### Lab 8, Feature 2: Movies
+
+Estimate of time needed to complete: 1.5h
+
+Start time: 9:00 PM Thursday
+
+Finish time: 10:30 PM Thursday
+
+Actual time needed to complete: 1.5h
