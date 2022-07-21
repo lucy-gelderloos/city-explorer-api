@@ -7,6 +7,8 @@ const cors = require('cors');
 const app = express();
 // const PORT = 3000;
 const PORT = process.env.PORT;
+const weatherAPIKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
+const movieAPIKey = process.env.REACT_APP_TMDB_API_KEY;
 
 
 app.use(cors());
@@ -17,8 +19,7 @@ class Forecast {
     this.condition = condition;
     this.high = high;
     this.low = low;
-    this.weatherAPIKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
-    this.movieAPIKey = process.env.REACT_APP_TMDB_API_KEY;
+
   }
 }
 
@@ -60,7 +61,7 @@ app.get('/', (request, response) => {
 
 app.get('/weather', (request, response) => {
 
-  let url = `https://api.weatherbit.io/v2.0/forecast/daily?&key=048b4716799246529c392254d49ff3dc&lat=${request.query.lat}&lon=${request.query.lon}`;
+  let url = `https://api.weatherbit.io/v2.0/forecast/daily?&key=${weatherAPIKey}&lat=${request.query.lat}&lon=${request.query.lon}`;
 
   axios.get(url)
     .then(res => {
@@ -76,12 +77,12 @@ app.get('/weather', (request, response) => {
 
 app.get('/movies', (request, response) => {
 
-  let url = `https://api.themoviedb.org/3/search/movie?api_key=5fc45765a1e23e490961b517caaaf372&query=${request.query.cityName}`;
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${movieAPIKey}&query=${request.query.cityName}`;
   console.log('movie url',url);
 
   axios.get(url)
     .then(res => {
-      console.log('res.data', res.data);
+      // console.log('res.data', res.data);
       let moviesArr = makeMoviesArray(res.data.results);
       // let forecastArr = makeForecastArray(res.data.data);
       response.send(moviesArr);
