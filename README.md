@@ -27,8 +27,8 @@
 
 Estimate of time needed to complete: 4h
 
-Start time: 4:00 PM
+Start time: 4:00 PM Wednesday
 
-Finish time: 11:30 PM
+Finish time: 8:30 PM Thursday
 
-Actual time needed to complete: 6h, with breaks
+Actual time needed to complete: 8h, with breaks

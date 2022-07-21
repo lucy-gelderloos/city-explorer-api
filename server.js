@@ -67,16 +67,8 @@ function makeForecastArray(weatherCity) {
   return forecastArr;
 }
 
-app.get('/error', (request, response) => {
-
-  throw new Error('Server not happy!!');
-
-});
-
-// put error handlers down here
-app.use('*', (request, response) => {
-  console.log('catch all route hit');
-  response.status(404).send('Route Not found :(');
+app.use('*', (error, request, response, next) => {
+  response.send(500).send(error);
 });
 
 // opens up the server for requests
