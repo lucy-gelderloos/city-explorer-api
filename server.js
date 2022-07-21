@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -20,6 +21,7 @@ class Forecast {
     this.condition = condition;
     this.high = high;
     this.low = low;
+    this.weatherAPIKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
   }
 }
 
@@ -30,34 +32,25 @@ app.get('/', (request, response) => {
 
 app.get('/weather', (request, response) => {
   console.log('request.query', request.query);
-  let cityName = request.query.cityName.toLowerCase();
-  let lat = parseInt(request.query.lat);
-  let lon = parseInt(request.query.lon);
-  console.log('weather line 34[0].lat', weather[0].lat, 'lat', lat, 'lon', lon);
 
-  let weatherCity = weather.find(el => {
-    let weatherLat = Math.round(el.lat);
-    let weatherLon = Math.round(el.lon);
-    console.log('weatherLon', weatherLon);
+  // let weatherAPIQuery = request.query.weatherAPIQuery;
 
-    // return cityName === el.city_name.toLowerCase();
-    return cityName === el.city_name.toLowerCase()
-    && lat === weatherLat
-    && lon === weatherLon;
-  });
-  console.log('weatherCity', weatherCity);
-  let forecastArr = makeForecastArray(weatherCity);
+  let url = `https://api.weatherbit.io/v2.0/forecast/daily?&key=048b4716799246529c392254d49ff3dc&lat=${request.query.lat}&lon=${request.query.lon}`;
 
-  if(cityName) {
-    response.send(forecastArr);
-    console.log('forecastArr',forecastArr);
-  } else {
-    response.send('Please enter Seattle, Paris, or Amman');
-  }
+  axios.get(url)
+    .then(res => {
+      console.log('res.data.data', res.data.data);
+      let forecastArr = makeForecastArray(res.data.data);
+      response.send(forecastArr);
+    })
+    .catch((e) => {
+      console.log(e);
+      response.status(500).send(e);
+    });
 });
 
 function makeForecastArray(weatherCity) {
-  const forecastArr = weatherCity.data.map(el => {
+  const forecastArr = weatherCity.map(el => {
     let date = el.valid_date;
     let condition = el.weather.description;
     let high = el.high_temp;
