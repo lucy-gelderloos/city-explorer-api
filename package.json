@@ -18,9 +18,9 @@
   },
   "homepage": "https://github.com/lucy-gelderloos/city-explorer-api#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1"
   }
-  
 }
