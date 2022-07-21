@@ -15,9 +15,11 @@ app.use(cors());
 
 class Forecast {
 //   static weather = require('./data/weather.json');
-  constructor(date, condition) {
+  constructor(date, condition, high, low) {
     this.date = date;
     this.condition = condition;
+    this.high = high;
+    this.low = low;
   }
 }
 
@@ -58,7 +60,9 @@ function makeForecastArray(weatherCity) {
   const forecastArr = weatherCity.data.map(el => {
     let date = el.valid_date;
     let condition = el.weather.description;
-    return new Forecast(date, condition);
+    let high = el.high_temp;
+    let low = el.low_temp;
+    return new Forecast(date, condition, high, low);
   });
   return forecastArr;
 }
