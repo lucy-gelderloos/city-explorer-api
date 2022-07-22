@@ -20,7 +20,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/weather', (request, response) => {
-  let url = `https://api.weatherbit.io/v2.0/forecast/daily?&key=${weatherAPIKey}&lat=${request.query.lat}&lon=${request.query.lon}`;
+  let url = `https://api.weatherbit.io/v2.0/forecast/daily?&key=${weatherAPIKey}&lat=${parseInt(request.query.lat)}&lon=${parseInt(request.query.lon)}`;
   axios.get(url)
     .then(res => {
       let forecastArr = makeForecastArray(res.data.data);
