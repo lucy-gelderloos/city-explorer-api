@@ -5,12 +5,11 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+app.use(cors());
 
 const getWeather = require('./weather');
 const getMovies = require('./movies');
 const PORT = process.env.PORT;
-
-app.use(cors());
 
 app.get('/', (request, response) => {
   response.send('hello from the home route!');

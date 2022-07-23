@@ -2,13 +2,13 @@
 
 require('dotenv').config();
 const axios = require('axios');
-// const express = require('express');
-// const app = express();
-// const cors = require('cors');
+const express = require('express');
+const app = express();
+const cors = require('cors');
 
 const movieAPIKey = process.env.REACT_APP_TMDB_API_KEY;
 
-// app.use(cors());
+app.use(cors());
 
 const getMovies = (cityName, response) => {
   let url = `https://api.themoviedb.org/3/search/movie?api_key=${movieAPIKey}&query=${cityName}`;
@@ -18,7 +18,7 @@ const getMovies = (cityName, response) => {
       response.send(moviesArr);
     })
     .catch((e) => {
-      console.log(e);
+      console.log('movies error',e);
       response.status(500).send(e);
     });
 };

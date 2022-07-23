@@ -2,23 +2,23 @@
 
 require('dotenv').config();
 const axios = require('axios');
-// const express = require('express');
-// const app = express();
-// const cors = require('cors');
+const express = require('express');
+const app = express();
+const cors = require('cors');
 
 const weatherAPIKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
 
-// app.use(cors());
+app.use(cors());
 
 const getWeather = (lat, lon, response) => {
-  let url = `https://api.weatherbit.io/v2.0/forecast/daily?&key=${weatherAPIKey}&lat=${lat}&lon=${lon}`;
+  let url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${weatherAPIKey}&lat=${lat}&lon=${lon}`;
   axios.get(url)
     .then(weatherGet => {
       let forecastArr = makeForecastArray(weatherGet.data.data);
       response.send(forecastArr);
     })
     .catch((e) => {
-      console.log(e);
+      console.log('weather error', e);
       response.status(500).send(e);
     });
 };
@@ -32,8 +32,8 @@ class Forecast {
   }
 }
 
-const makeForecastArray = function(weatherCity) {
-  const forecastArr = weatherCity.map(el => {
+const makeForecastArray = function(arr) {
+  const forecastArr = arr.map(el => {
     let date = el.valid_date;
     let condition = el.weather.description;
     let high = el.high_temp;
