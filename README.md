@@ -10,10 +10,11 @@
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
 
 ## Architecture
-![Day 1 Whiteboard](./src/img/lab-06-whiteboard.png)
-![Day 2 Whiteboard](./src/img/lab-07-diagram.png)
-![Day 3 Whiteboard](./src/img/lab-08-diagram.png)
-![Day 4 Whiteboard](./src/img/lab-09-diagram.png)
+
+![Day 1 Whiteboard](./img/lab-06-whiteboard.png)
+![Day 2 Whiteboard](./img/lab-07-diagram.png)
+![Day 3 Whiteboard](./img/lab-08-diagram.png)
+![Day 4 Whiteboard](./img/lab-09-diagram.png)
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
