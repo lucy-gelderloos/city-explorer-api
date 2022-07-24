@@ -10,7 +10,10 @@
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+![Day 1 Whiteboard](./src/img/lab-06-whiteboard.png)
+![Day 2 Whiteboard](./src/img/lab-07-diagram.png)
+![Day 3 Whiteboard](./src/img/lab-08-diagram.png)
+![Day 4 Whiteboard](./src/img/lab-09-diagram.png)
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
@@ -52,3 +55,33 @@ Start time: 9:00 PM Thursday
 Finish time: 10:30 PM Thursday
 
 Actual time needed to complete: 1.5h
+
+### Lab 8, Feature 3: Publish
+
+Estimate of time needed to complete: 1h
+
+Start time: 10:30 PM Wednesday
+
+Finish time: 11:30 PM Wednesday
+
+Actual time needed to complete: 1h
+
+### Lab 9, Feature 1: Modularize
+
+Estimate of time needed to complete: 2h
+
+Start time: 3:00 PM Thursday
+
+Finish time: 11:30 AM Saturday
+
+Actual time needed to complete: 4h
+
+### Lab 9, Feature 2: Componentize
+
+Estimate of time needed to complete: 2h
+
+Start time: 3:00 PM Thursday
+
+Finish time: 11:30 AM Saturday
+
+Actual time needed to complete: 4h
