@@ -1,7 +1,6 @@
 'use strict';
 
 require('dotenv').config();
-// const axios = require('axios');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -23,11 +22,10 @@ app.get('/movies', (request, response) => {
   getMovies(request.query.cityName, response);
 });
 
-app.use('*', (error, request, response, next) => {
+app.use('*', (error, request, response) => {
   response.send(500).send(error);
 });
 
-// opens up the server for requests
 app.listen(PORT, () => {
   console.log('Server is running on port :: ' + PORT);
 });

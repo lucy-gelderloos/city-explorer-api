@@ -10,6 +10,15 @@ const movieAPIKey = process.env.REACT_APP_TMDB_API_KEY;
 
 app.use(cors());
 
+class Movie {
+  constructor(title, overview, releaseDate, popularity) {
+    this.title = title;
+    this.overview = overview;
+    this.releaseDate = releaseDate;
+    this.popularity = popularity;
+  }
+}
+
 const getMovies = (cityName, response) => {
   let url = `https://api.themoviedb.org/3/search/movie?api_key=${movieAPIKey}&query=${cityName}`;
   axios.get(url)
@@ -23,16 +32,7 @@ const getMovies = (cityName, response) => {
     });
 };
 
-class Movie {
-  constructor(title, overview, releaseDate, popularity) {
-    this.title = title;
-    this.overview = overview;
-    this.releaseDate = releaseDate;
-    this.popularity = popularity;
-  }
-}
-
-const makeMoviesArray = function(city) {
+const makeMoviesArray = (city) => {
   const moviesArr = city.map(el => {
     let title = el.title;
     let overview = el.overview;
