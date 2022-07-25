@@ -5,12 +5,11 @@ const axios = require('axios');
 const express = require('express');
 const app = express();
 const cors = require('cors');
+app.use(cors());
 
 const searchCache = require('./searchCache');
 
 const weatherAPIKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
-
-app.use(cors());
 
 class Forecast {
   constructor(date, condition, high, low) {
@@ -20,8 +19,7 @@ class Forecast {
     this.low = low;
   }
 }
-
-// let weatherCache = {};
+const today = new Date();
 
 const getWeather = (lat, lon, response) => {
 
@@ -29,7 +27,7 @@ const getWeather = (lat, lon, response) => {
   lon = truncateString(lon);
   let locationID = `${lat}${lon}`;
 
-  if(searchCache[locationID]) {
+  if(searchCache[locationID] && searchCache.cacheExpires > today) {
     console.log(`Location ID ${locationID} found in searchCache`);
     let cachedObj = searchCache[locationID];
     response.send(cachedObj.forecastArr);
@@ -42,15 +40,19 @@ const getWeather = (lat, lon, response) => {
     axios.get(url)
       .then(weatherGet => {
         let forecastArr = makeForecastArray(weatherGet.data.data);
+        searchCache.cacheExpires = setExpiration();
+        searchCache.lastCached = today;
         searchCache[locationID] = {forecastArr:forecastArr};
-        response.send(forecastArr);
+        let cachedObj = searchCache[locationID];
+        response.send(cachedObj.forecastArr);
       })
       .catch((e) => {
         console.log('weather error', e);
         response.status(500).send(e);
+        let cachedObj = searchCache[locationID];
+        response.send(cachedObj.forecastArr);
       });
   }
-
 };
 
 
@@ -63,8 +65,14 @@ const makeForecastArray = (arr) => {
     let low = el.low_temp;
     return new Forecast(date, condition, high, low);
   });
-  console.log('makeForecastArr forecastArr[0]',forecastArr[0]);
   return forecastArr;
+};
+
+const setExpiration = () => {
+  const expiresDate = new Date(today);
+  expiresDate.setDate(expiresDate.getDate() + 1);
+  expiresDate.setHours(0,0,0,0);
+  return expiresDate;
 };
 
 const truncateString = (str) => {
