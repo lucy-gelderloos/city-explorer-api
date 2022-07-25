@@ -1,10 +1,11 @@
 # City Explorer API
 
-**Author**: Your Name Goes Here
+**Author**: Lucy Gelderloos
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+
+This application allows the user to search for a city and see current weather, a map of the city center, and relevant movies.
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
@@ -15,6 +16,7 @@
 ![Day 2 Whiteboard](./img/lab-07-diagram.png)
 ![Day 3 Whiteboard](./img/lab-08-diagram.png)
 ![Day 4 Whiteboard](./img/lab-09-diagram.png)
+![Day 5 Whiteboard](./img/lab-10-diagram.png)
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
@@ -86,3 +88,13 @@ Start time: 3:00 PM Thursday
 Finish time: 11:30 AM Saturday
 
 Actual time needed to complete: 4h
+
+### Lab 10, Feature 1: Performance
+
+Estimate of time needed to complete: 4h
+
+Start time: 3:00 PM Sunday
+
+Finish time: 7:30 PM Sunday
+
+Actual time needed to complete: 4.5h
