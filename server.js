@@ -8,6 +8,7 @@ app.use(cors());
 
 const getWeather = require('./weather');
 const getMovies = require('./movies');
+// const searchCache = require('./searchCache');
 const PORT = process.env.PORT;
 
 app.get('/', (request, response) => {
@@ -22,8 +23,9 @@ app.get('/movies', (request, response) => {
   getMovies(request.query.cityName, response);
 });
 
-app.use('*', (error, request, response) => {
+app.use('*', (error, request, response, next) => {
   response.send(500).send(error);
+  next();
 });
 
 app.listen(PORT, () => {

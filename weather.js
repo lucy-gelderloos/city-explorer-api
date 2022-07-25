@@ -6,6 +6,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
+const searchCache = require('./searchCache');
+
 const weatherAPIKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
 
 app.use(cors());
@@ -19,26 +21,38 @@ class Forecast {
   }
 }
 
+// let weatherCache = {};
+
 const getWeather = (lat, lon, response) => {
 
   lat = truncateString(lat);
   lon = truncateString(lon);
+  let locationID = `${lat}${lon}`;
 
-  // let url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${weatherAPIKey}&lat=48&lon=-122`;
-  let url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${weatherAPIKey}&lat=${lat}&lon=${lon}&units=I`;
+  if(searchCache[locationID]) {
+    console.log(`Location ID ${locationID} found in searchCache`);
+    let cachedObj = searchCache[locationID];
+    response.send(cachedObj.forecastArr);
+  }
 
-  axios.get(url)
+  else {
+    console.log(`location ID ${locationID} not found in searchCache`);
+    let url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${weatherAPIKey}&lat=${lat}&lon=${lon}&units=I`;
 
-    .then(weatherGet => {
-      let forecastArr = makeForecastArray(weatherGet.data.data);
-      console.log('weather.js .then forecastArr[0]', forecastArr[0]);
-      response.send(forecastArr);
-    })
-    .catch((e) => {
-      console.log('weather error', e);
-      response.status(500).send(e);
-    });
+    axios.get(url)
+      .then(weatherGet => {
+        let forecastArr = makeForecastArray(weatherGet.data.data);
+        searchCache[locationID] = {forecastArr:forecastArr};
+        response.send(forecastArr);
+      })
+      .catch((e) => {
+        console.log('weather error', e);
+        response.status(500).send(e);
+      });
+  }
+
 };
+
 
 const makeForecastArray = (arr) => {
   console.log('makeForecastArray arr[0]',arr[0]);
